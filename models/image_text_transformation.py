@@ -32,10 +32,11 @@ class ImageTextTransformation:
         print('\033[1;33m' + "Initializing models...".center(50, '-') + '\033[0m')
         print('\033[1;31m' + "This is time-consuming, please wait...".center(50, '-') + '\033[0m')
         self.image_caption_model = ClipInterrogator(device=self.args.image_caption_device)
+        self.blip_caption_model = ImageCaptioning(device=self.args.image_caption_device)
         self.dense_caption_model = DenseCaptioning(device=self.args.dense_caption_device)
         self.gpt_model = ImageToText(openai_key)
         self.controlnet_model = TextToImage(device=self.args.contolnet_device)
-        self.region_semantic_model = RegionSemantic(device=self.args.semantic_segment_device, image_caption_model=self.image_caption_model, region_classify_model=self.args.region_classify_model, sam_arch=self.args.sam_arch)
+        self.region_semantic_model = RegionSemantic(device=self.args.semantic_segment_device, image_caption_model=self.blip_caption_model, region_classify_model=self.args.region_classify_model, sam_arch=self.args.sam_arch)
         print('\033[1;32m' + "Model initialization finished!".center(50, '-') + '\033[0m')
 
     
