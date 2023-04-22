@@ -5,7 +5,10 @@ from clip_interrogator import Interrogator, Config
 class ClipInterrogator:
     def __init__(self, device, captioner_base_model='blip'):
         self.device = device
-        self.ci = Interrogator(Config(clip_model_name="ViT-L-14/openai"))
+        self.ci = Interrogator(Config(
+            clip_model_name="ViT-L-14/openai",
+            device=device
+        ))
 
     def image_caption(self, image_src):
         image = Image.open(image_src).convert('RGB')

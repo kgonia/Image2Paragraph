@@ -1,10 +1,10 @@
 --extra-index-url https://download.pytorch.org/whl
-torch==1.9.0+cu111
-torchvision==0.10.0+cu111
-torchaudio==0.9.0
--f https://dl.fbaipublicfiles.com/detectron2/wheels/cu111/torch1.9/index.html
+torch==1.10.1+cu111
+torchvision==0.11.2+cu111
+torchaudio==0.10.1
+-f https://dl.fbaipublicfiles.com/detectron2/wheels/cu111/torch1.10/index.html
 detectron2==0.6
-transformers
+transformers>=4.27.1
 timm==0.4.12
 openai
 diffusers[torch]
@@ -21,3 +21,4 @@ jsonschema
 entrypoints
 nltk
 clip-interrogator==0.6.0
+MarkupSafe<=2.0.1
