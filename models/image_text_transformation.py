@@ -31,8 +31,8 @@ class ImageTextTransformation:
         print('\033[1;34m' + "Welcome to the Image2Paragraph toolbox...".center(50, '-') + '\033[0m')
         print('\033[1;33m' + "Initializing models...".center(50, '-') + '\033[0m')
         print('\033[1;31m' + "This is time-consuming, please wait...".center(50, '-') + '\033[0m')
-        self.image_caption_model = ClipInterrogator(device=self.args.image_caption_device)
-        self.blip_caption_model = ImageCaptioning(device=self.args.image_caption_device)
+        self.clip_interrogator_model = ClipInterrogator(device=self.args.image_caption_device)
+        self.image_caption_model = ImageCaptioning(device=self.args.image_caption_device)
         self.dense_caption_model = DenseCaptioning(device=self.args.dense_caption_device)
         self.gpt_model = ImageToText(openai_key)
         self.controlnet_model = TextToImage(device=self.args.contolnet_device)
@@ -51,6 +51,10 @@ class ImageTextTransformation:
             image_caption = self.image_caption_model.image_caption(img_src)
         else:
             image_caption = " "
+        if self.args.image_interrogator:
+            image_interrogator = self.clip_interrogator_model.image_caption(img_src)
+        else:
+            image_interrogator = " "
         if self.args.dense_caption:
             dense_caption = self.dense_caption_model.image_dense_caption(img_src)
         else:
@@ -59,8 +63,11 @@ class ImageTextTransformation:
             region_semantic = self.region_semantic_model.region_semantic(img_src)
         else:
             region_semantic = " "
-        generated_text = self.gpt_model.paragraph_summary_with_gpt(image_caption, dense_caption, region_semantic, width, height)
+        generated_text = self.gpt_model.paragraph_summary_with_gpt(image_caption,image_interrogator, dense_caption, region_semantic, width, height)
         return generated_text
+
+    def image_to_negative_caption(self, img_src):
+        return self.image_caption_model.image_negative_caption(img_src)
 
     def text_to_image(self, text):
         generated_image = self.controlnet_model.text_to_image(text, self.ref_image)
