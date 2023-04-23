@@ -52,6 +52,8 @@ if __name__ == '__main__':
     parser.add_argument('--dense_caption_device', choices=['cuda', 'cpu'], default='cuda', help='Select the device: cuda or cpu, < 6G GPU is not recommended>')
     parser.add_argument('--semantic_segment_device', choices=['cuda', 'cpu'], default='cuda', help='Select the device: cuda or cpu, gpu memory larger than 14G is recommended. Make sue this model and image_caption model on same device.')
     parser.add_argument('--contolnet_device', choices=['cuda', 'cpu'], default='cpu', help='Select the device: cuda or cpu, <6G GPU is not recommended>')
+    parser.add_argument('--interrogator_blip_model', choices=['blip-base','blip-large', 'blip2-2.7b', 'git-large-coco'], dest='interrogator_blip_model', default='blip-large', help='blip2 requires 15G GPU memory, blip requires 6G GPU memory')
+    parser.add_argument('--interrogator_clip_model', choices=['ViT-L-14/openai', 'ViT-H-14/laion2b_s32b_b79k'], dest='interrogator_clip_model', default='ViT-L-14/openai', help='blip2 requires 15G GPU memory, blip requires 6G GPU memory')
 
     args = parser.parse_args()
 

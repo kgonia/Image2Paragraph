@@ -31,7 +31,7 @@ class ImageTextTransformation:
         print('\033[1;34m' + "Welcome to the Image2Paragraph toolbox...".center(50, '-') + '\033[0m')
         print('\033[1;33m' + "Initializing models...".center(50, '-') + '\033[0m')
         print('\033[1;31m' + "This is time-consuming, please wait...".center(50, '-') + '\033[0m')
-        self.clip_interrogator_model = ClipInterrogator(device=self.args.image_caption_device)
+        self.clip_interrogator_model = ClipInterrogator(device=self.args.image_caption_device, clip_model=self.args.interrogator_clip_model, blip_model=self.args.interrogator_blip_model)
         self.image_caption_model = ImageCaptioning(device=self.args.image_caption_device)
         self.dense_caption_model = DenseCaptioning(device=self.args.dense_caption_device)
         self.gpt_model = ImageToText(openai_key)
@@ -67,7 +67,7 @@ class ImageTextTransformation:
         return generated_text
 
     def image_to_negative_caption(self, img_src):
-        return self.image_caption_model.image_negative_caption(img_src)
+        return self.clip_interrogator_model.image_negative_caption(img_src)
 
     def text_to_image(self, text):
         generated_image = self.controlnet_model.text_to_image(text, self.ref_image)
