@@ -58,7 +58,6 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     processor = ImageTextTransformation(args)
-    process_image(processor, args.image_src, args.out_image_name)
 
     if args.image_dir:
         # Process all images in the directory
@@ -70,7 +69,7 @@ if __name__ == '__main__':
             out_text_path = os.path.join(args.out_image_dir, f'{file_name}.caption')
             out_negative_text_path = os.path.join(args.out_image_dir, f'{file_name}_negative.caption')
 
-            process_image(processor, image_path, out_image_name)
+            process_image(processor, image_path, out_image_name, out_text_path, out_negative_text_path)
 
     else:
         # Process a single image
@@ -78,5 +77,5 @@ if __name__ == '__main__':
         out_text_path = os.path.join(args.out_image_dir, f'{file_name}.caption')
         out_negative_text_path = os.path.join(args.out_image_dir, f'{file_name}_negative.caption')
 
-        process_image(processor, args.image_src, args.out_image_name)
+        process_image(processor, args.image_src, args.out_image_name, out_text_path, out_negative_text_path)
 
