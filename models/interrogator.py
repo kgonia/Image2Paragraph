@@ -3,10 +3,10 @@ from clip_interrogator import Interrogator, Config
 
 
 class ClipInterrogator:
-    def __init__(self, device, blip_model='blip-large'):
+    def __init__(self, device, clip_model='ViT-L-14/openai', blip_model='blip-large'):
         self.device = device
         self.ci = Interrogator(Config(
-            clip_model_name="ViT-L-14/openai",
+            clip_model_name=clip_model,
             caption_model_name=blip_model,
             device=device
         ))
