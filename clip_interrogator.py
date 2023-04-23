@@ -1,8 +1,21 @@
 import argparse
 import os
+from glob import glob
 
-from main import get_image_paths, save_text_to_file
 from models.interrogator import ClipInterrogator
+
+def get_image_paths(image_dir):
+    image_exts = ['*.jpg', '*.jpeg', '*.png']
+    image_paths = []
+
+    for ext in image_exts:
+        image_paths.extend(glob(os.path.join(image_dir, ext), recursive=True))
+
+    return image_paths
+
+def save_text_to_file(text, output_file_path):
+    with open(output_file_path, 'w') as f:
+        f.write(text)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
